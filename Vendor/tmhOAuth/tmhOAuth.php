@@ -16,9 +16,10 @@
  * @author pocket7878
  * @version 0.1
  * 
- * 12 August 2012
+ * 19 August 2012
  */
 class tmhOAuth {
+  // Modified: (Pocket7878)
   const VERSION = 0.1;
 
   /**
@@ -101,7 +102,8 @@ class tmhOAuth {
       $ssl = '-SSL';
     }
 
-    $ua = 'tmhOAuth ' . self::VERSION . $ssl . ' - //github.com/themattharris/tmhOAuth';
+    // Modified: (Pocket7878)
+    $ua = 'tmhOAuth ' . self::VERSION . $ssl . ' - //github.com/pocket7878/opauth-flickr';
     $this->config['user_agent'] = $ua;
   }
 
