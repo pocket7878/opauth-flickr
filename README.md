@@ -1,4 +1,4 @@
-Opauth-Twitter
+Opauth-Flickr
 =============
 Flickr strategy for [Opauth][1], based on Opauth-OAuth, Opauth-twitter.
 
