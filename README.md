@@ -1,6 +1,6 @@
 Opauth-Flickr
 =============
-Flickr strategy for [Opauth][1], based on Opauth-OAuth, Opauth-twitter.
+Flickr strategy for [Opauth][1], based on Opauth-OAuth & Opauth-Twitter.
 
 Getting started
 ----------------
@@ -24,7 +24,7 @@ Required parameters:
 
 ```php
 <?php
-'Twitter' => array(
+'Flickr' => array(
 	'key' => 'YOUR APP KEY',
 	'secret' => 'YOUR APP SECRET'
 )
