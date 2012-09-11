@@ -120,6 +120,13 @@ class FlickrStrategy extends OpauthStrategy {
 
                                         $this->callback();
                                 }
+                                else {
+                                        $error = array(
+                                                'code' => 'flickr.test.login_failed',
+                                                'message' => 'Unable to obtain User ID',
+                                                'raw' => $credentials
+                                        );
+                                }
                         }
                 }
                 else{
