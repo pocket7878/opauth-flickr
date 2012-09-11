@@ -110,7 +110,6 @@ class FlickrStrategy extends OpauthStrategy {
                                                 $person = $userInfo['person'];
                                                                                        
                                                 $this->auth = array(
-                                                        'provider' => 'Flickr',
                                                         'uid' => $person['id'],
                                                         'info' => array(
                                                                 'image' => 'http://farm'.$person['iconfarm'].'.staticflickr.com/'.$person['iconserver'].'/buddyicons/'.$person['nsid'].'.jpg'
@@ -149,7 +148,6 @@ class FlickrStrategy extends OpauthStrategy {
                 }
                 else{
                         $error = array(
-                                'provider' => 'Flickr',
                                'code' => 'access_denied',
                                 'message' => 'User denied access.',
                                 'raw' => $_GET
@@ -220,7 +218,6 @@ class FlickrStrategy extends OpauthStrategy {
                 }
                 else {
                         $error = array(
-                                'provider' => 'Flickr',
                                 'code' => $code,
                                 'raw' => $this->tmhOAuth->response['response']
                         );
