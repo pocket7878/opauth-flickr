@@ -112,7 +112,9 @@ class FlickrStrategy extends OpauthStrategy {
                                                 $this->auth = array(
                                                         'provider' => 'Flickr',
                                                         'uid' => $person['id'],
-                                                        'info' => array(),
+                                                        'info' => array(
+                                                                'image' => 'http://farm'.$person['iconfarm'].'.staticflickr.com/'.$person['iconserver'].'/buddyicons/'.$person['nsid'].'.jpg'
+                                                        ),
                                                         'credentials' => array(
                                                                 'token' => $results['oauth_token'],
                                                                 'secret' => $results['oauth_token_secret']
