@@ -103,28 +103,51 @@ class FlickrStrategy extends OpauthStrategy {
                         if ($results !== false && !empty($results['oauth_token']) && !empty($results['oauth_token_secret'])){
                                 $credentials = $this->_verify_credentials($results['oauth_token'], $results['oauth_token_secret']);
 
-                                if (!empty($credentials['user']['id'])){
+                                if (!empty($credentials['user']['id'])) {
+                                        $userInfo = $this->_getUserInfo($credentials['user']['id']);
+                                        
+                                        if (!empty($userInfo['person']['id'])) {
+                                                $person = $userInfo['person'];
+                                                                                       
+                                                $this->auth = array(
+                                                        'uid' => $person['id'],
+                                                        'info' => array(
+                                                                'image' => 'http://farm'.$person['iconfarm'].'.staticflickr.com/'.$person['iconserver'].'/buddyicons/'.$person['nsid'].'.jpg'
+                                                        ),
+                                                        'credentials' => array(
+                                                                'token' => $results['oauth_token'],
+                                                                'secret' => $results['oauth_token_secret']
+                                                        ),
+                                                        'raw' => $userInfo
+                                                );
+                                        
+                                                $this->mapProfile($person, 'username._content', 'info.nickname');
+                                                $this->mapProfile($person, 'realname._content', 'info.name');
+                                                $this->mapProfile($person, 'location._content', 'info.location');
+                                                $this->mapProfile($person, 'description._content', 'info.description');
+                                                $this->mapProfile($person, 'profileurl._content', 'info.urls.flickr');
 
-                                        $this->auth = array(
-                                                'provider' => 'Flickr',
-                                                'uid' => $credentials['user']['id'],
-                                                'info' => array(
-                                                       'name' => $credentials['user']['username']['_content'],
-                                                ),
-                                                'credentials' => array(
-                                                        'token' => $results['oauth_token'],
-                                                        'secret' => $results['oauth_token_secret']
-                                                ),
+                                                $this->callback();
+                                        }
+                                        else {
+                                                $error = array(
+                                                        'code' => 'flickr.people.getInfo_failed',
+                                                        'message' => 'Unable to obtain user info',
+                                                        'raw' => $userInfo
+                                                );
+                                        }
+                                }
+                                else {
+                                        $error = array(
+                                                'code' => 'flickr.test.login_failed',
+                                                'message' => 'Unable to obtain User ID',
                                                 'raw' => $credentials
                                         );
-
-                                        $this->callback();
                                 }
                         }
                 }
                 else{
                         $error = array(
-                                'provider' => 'Flickr',
                                'code' => 'access_denied',
                                 'message' => 'User denied access.',
                                 'raw' => $_GET
@@ -153,6 +176,17 @@ class FlickrStrategy extends OpauthStrategy {
 
                 $response = $this->_request('GET', $this->strategy['flickr_profile_url'], $params);
 
+                return $this->recursiveGetObjectVars($response);
+        }
+        
+        private function _getUserInfo($user_id) {
+                $params = array( 'nojsoncallback' => 1,
+				 'format'=>'json',
+				 'method'=>'flickr.people.getInfo',
+				 'user_id' => $user_id );
+                
+                $response = $this->_request('GET', $this->strategy['flickr_profile_url'], $params);
+                
                 return $this->recursiveGetObjectVars($response);
         }
 
@@ -184,7 +218,6 @@ class FlickrStrategy extends OpauthStrategy {
                 }
                 else {
                         $error = array(
-                                'provider' => 'Flickr',
                                 'code' => $code,
                                 'raw' => $this->tmhOAuth->response['response']
                         );
