@@ -22,6 +22,7 @@ class FlickrStrategy extends OpauthStrategy {
          */
         public $defaults = array(
                 'method' => 'POST',
+                'perms' => 'read',
                 'oauth_callback' => '{complete_url_to_strategy}oauth_callback',
                 'authorize_url' => 'http://www.flickr.com/services/oauth/authorize', 
                 'request_token_url' => 'http://www.flickr.com/services/oauth/request_token',
@@ -78,7 +79,7 @@ class FlickrStrategy extends OpauthStrategy {
                         session_start();
                         $_SESSION['_opauth_flickr'] = $results;
 
-                        $this->_authorize($results['oauth_token']);
+                        $this->_authorize($results['oauth_token'], $this->strategy['perms']);
                 }
         }
 
@@ -158,9 +159,10 @@ class FlickrStrategy extends OpauthStrategy {
                 }
         }
 
-        private function _authorize($oauth_token){
+        private function _authorize($oauth_token, $perms){
                 $params = array(
-                        'oauth_token' => $oauth_token
+                        'oauth_token' => $oauth_token,
+                        'perms' => $perms
                 );
 
                 $this->clientGet($this->strategy['authorize_url'], $params);
