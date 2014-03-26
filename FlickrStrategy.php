@@ -10,6 +10,9 @@
  * @package     Opauth.FlickrStrategy
  * @license     MIT License
  */
+
+require_once 'vendor/autoload.php';
+
 class FlickrStrategy extends OpauthStrategy {
 
         /**

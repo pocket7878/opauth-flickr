@@ -8,6 +8,8 @@ Getting started
    ```bash
    cd path_to_opauth/Strategy
    git clone git://github.com/pocket7878/opauth-flickr.git Flickr
+   curl -s http://getcomposer.org/installer | php
+   php composer.phar install
    ```
 
 2. Create Flickr application at http://www.flickr.com/services/
