@@ -11,8 +11,9 @@
                 "homepage": "http://poketo7878.dip.jp"
         }],
         "require": {
-                "php": ">=5.2.0",
-                "opauth/opauth": ">=0.2.0"
+            "php": ">=5.2.0",
+            "opauth/opauth": ">=0.2.0",
+            "themattharris/tmhoauth": "0.x"
         },
         "autoload": {
                 "psr-0": {

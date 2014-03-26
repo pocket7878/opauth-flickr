@@ -28,27 +28,6 @@ class FlickrStrategy extends OpauthStrategy {
                 'request_token_url' => 'http://www.flickr.com/services/oauth/request_token',
                 'access_token_url' =>  'http://www.flickr.com/services/oauth/access_token',
                 'flickr_profile_url' => 'http://api.flickr.com/services/rest?format=json',
-
-                // From tmhOAuth
-                'user_token'					=> '',
-                'user_secret'					=> '',
-                'use_ssl'						=> true,
-                'debug'							=> false,
-                'force_nonce'					=> false,
-                'nonce'							=> false, // used for checking signatures. leave as false for auto
-                'force_timestamp'				=> false,
-                'timestamp'						=> false, // used for checking signatures. leave as false for auto
-                'oauth_version'					=> '1.0',
-                'curl_connecttimeout'			=> 30,
-                'curl_timeout'					=> 10,
-                'curl_ssl_verifypeer'			=> false,
-                'curl_followlocation'			=> false, // whether to follow redirects or not
-                'curl_proxy'					=> false, // really you don't want to use this if you are using streaming
-                'curl_proxyuserpwd'				=> false, // format username:password for proxy, if required
-                'is_streaming'					=> false,
-                'streaming_eol'					=> "\r\n",
-                'streaming_metrics_interval'	=> 60,
-                'as_header'				  		=> true,
         );
 
         /**
@@ -60,8 +39,11 @@ class FlickrStrategy extends OpauthStrategy {
 
                 $this->strategy['consumer_key'] = $this->strategy['key'];
                 $this->strategy['consumer_secret'] = $this->strategy['secret'];
-
-                require dirname(__FILE__).'/Vendor/tmhOAuth/tmhOAuth.php';
+                
+                // Changes to parameter names
+                $this->strategy['token'] = isset($this->strategy['user_token']) ? $this->strategy['user_token'] : '';
+                $this->strategy['secret'] = isset($this->strategy['user_secret']) ? $this->strategy['user_secret'] : '';
+                
                 $this->tmhOAuth = new tmhOAuth($this->strategy);
         }
 
