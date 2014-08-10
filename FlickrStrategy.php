@@ -25,10 +25,10 @@ class FlickrStrategy extends OpauthStrategy {
                 'method' => 'POST',
                 'perms' => 'read',
                 'oauth_callback' => '{complete_url_to_strategy}oauth_callback',
-                'authorize_url' => 'http://www.flickr.com/services/oauth/authorize', 
-                'request_token_url' => 'http://www.flickr.com/services/oauth/request_token',
-                'access_token_url' =>  'http://www.flickr.com/services/oauth/access_token',
-                'flickr_profile_url' => 'http://api.flickr.com/services/rest?format=json',
+                'authorize_url' => 'https://www.flickr.com/services/oauth/authorize', 
+                'request_token_url' => 'https://www.flickr.com/services/oauth/request_token',
+                'access_token_url' =>  'https://www.flickr.com/services/oauth/access_token',
+                'flickr_profile_url' => 'https://api.flickr.com/services/rest?format=json',
         );
 
         /**
